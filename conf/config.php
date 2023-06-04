@@ -1,4 +1,3 @@
 <?php
-$koneksi = mysqli_connect("localhost","root","","sipp");
+$koneksi = mysqli_connect("localhost", "root", "", "sipp");
 //mengecek koneksi
-    
