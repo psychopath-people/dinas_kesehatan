@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 02:05 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.3.5
+-- Waktu pembuatan: 05 Jun 2023 pada 07.52
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `datadokter`
+-- Struktur dari tabel `datadokter`
 --
 
 CREATE TABLE `datadokter` (
@@ -35,22 +34,16 @@ CREATE TABLE `datadokter` (
   `fakultas` varchar(50) NOT NULL,
   `status` varchar(50) NOT NULL,
   `peminatan` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `datadokter`
---
-
--- INSERT INTO `datadokter` (`nip`,`nama`, `ttl`, `fakultas`, `status`, `peminatan`) VALUES
--- ('198405032010012037',' dr.Dwi Wahyuni', 'Samarinda,03-Mei-1984', 'FK-UGM', 'PNS-Kab.Situbondo', 'Ilmu Penyakit Dalam'),
--- -- --------------------------------------------------------
-
---
--- Table structure for table `datapasien`
+-- Struktur dari tabel `datapasien`
 --
 
 CREATE TABLE `datapasien` (
-  `nik` int(50) NOT NULL,
+  `nik` int(20) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `jeniskelamin` enum('laki-laki','perempuan') NOT NULL,
   `goldarah` enum('A','B','AB','O') NOT NULL,
@@ -59,36 +52,27 @@ CREATE TABLE `datapasien` (
   `umur` int(20) NOT NULL,
   `nomorhp` varchar(100) NOT NULL,
   `tglperiksa` date NOT NULL,
-  `puskesmas` varchar(10) NOT NULL
+  `puskesmas` varchar(10) NOT NULL,
   `riwayat` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `datapasien`
---
-
--- INSERT INTO `datapasien` (`nik`, `nama`, `jeniskelamin`, `goldarah`, `alamat`, `tanggallahir`, `umur`, `nomorhp`, `tglperiksa`, `riwayat`) VALUES
--- ('20127389405980', 'Nuriya Maulidah', 'perempuan', 'A', 'Sukorejo Banyuputih Situbondo', '2023-01-03', 21, '085234543565 ', '2023-01-04', 'Puskesmas Asembagus', 'Diabetes'),
--- ('2198764566377', 'Amel', 'perempuan', 'AB', 'Arjasa Situbondo', '2023-01-03', 21, '647638920987', '2023-01-03', 'Diabetes'),
--- ('8217712674897109', 'Aldi', 'laki-laki', 'B', 'Jangkar Situbondo', '2023-01-04', 26, '2197472718429', '2023-01-03', 'Diabetes');
-
--- -- --------------------------------------------------------
-
---
--- Table structure for table `datapuskesmas`
+-- Struktur dari tabel `datapuskesmas`
 --
 
 CREATE TABLE `datapuskesmas` (
   `id` varchar(50) NOT NULL,
   `namapuskesmas` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `datapuskesmas`
+-- Dumping data untuk tabel `datapuskesmas`
 --
 
 INSERT INTO `datapuskesmas` (`id`, `namapuskesmas`) VALUES
-('PKS001', 'Puskesmas Banyuputih'),
+('PKS001', 'Puskesmas Banyuputihaya'),
 ('PKS002', 'Puskesmas Asembagus'),
 ('PKS003', 'Puskesmas Jangkar'),
 ('PKS004', 'Puskesmas Kapongan'),
@@ -111,7 +95,7 @@ INSERT INTO `datapuskesmas` (`id`, `namapuskesmas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `laporan`
+-- Struktur dari tabel `laporan`
 --
 
 CREATE TABLE `laporan` (
@@ -119,10 +103,10 @@ CREATE TABLE `laporan` (
   `bulan` varchar(30) NOT NULL,
   `kodepenyakit` varchar(50) NOT NULL,
   `jumlah` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `laporan`
+-- Dumping data untuk tabel `laporan`
 --
 
 INSERT INTO `laporan` (`id`, `bulan`, `kodepenyakit`, `jumlah`) VALUES
@@ -142,7 +126,7 @@ INSERT INTO `laporan` (`id`, `bulan`, `kodepenyakit`, `jumlah`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_user`
+-- Struktur dari tabel `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -151,10 +135,10 @@ CREATE TABLE `tb_user` (
   `username` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
   `level` enum('superadmin','operator') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data for table `tb_user`
+-- Dumping data untuk tabel `tb_user`
 --
 
 INSERT INTO `tb_user` (`id`, `nama`, `username`, `password`, `level`) VALUES
@@ -166,34 +150,38 @@ INSERT INTO `tb_user` (`id`, `nama`, `username`, `password`, `level`) VALUES
 --
 
 --
--- Indexes for table `datadokter`
+-- Indeks untuk tabel `datadokter`
 --
 ALTER TABLE `datadokter`
   ADD PRIMARY KEY (`nip`);
 
 --
--- Indexes for table `datapasien`
+-- Indeks untuk tabel `datapasien`
 --
 ALTER TABLE `datapasien`
   ADD PRIMARY KEY (`nik`);
 
 --
--- Indexes for table `datapuskesmas`
+-- Indeks untuk tabel `datapuskesmas`
 --
 ALTER TABLE `datapuskesmas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `laporan`
---
-ALTER TABLE `laporan`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tb_user`
+-- Indeks untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_user`
+--
+ALTER TABLE `tb_user`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

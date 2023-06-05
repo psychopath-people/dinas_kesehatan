@@ -21,7 +21,7 @@
                         <p>Pasien</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion ion-stats-bars"></i>
                     </div>
                     <a href="index.php?page=datapasien" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>
@@ -37,7 +37,7 @@
                         <p>Dokter</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion ion-stats-bars"></i>
                     </div>
                     <a href="index.php?page=datadokter" class="small-box-footer">More info <i
                             class="fas fa-arrow-circle-right"></i></a>

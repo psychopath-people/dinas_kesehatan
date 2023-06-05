@@ -46,7 +46,7 @@ include('header.php');?>
         include('datadokter.php');
       }
       else if ($_GET['page']=='datapuskesmas'){ 
-        include('datapuskesmas.php');
+        include('puskesmas.php');
       }
       else if ($_GET['page']=='laporan'){ 
         include('laporanperbulan.php');

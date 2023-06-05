@@ -13,10 +13,9 @@ $view  = mysqli_fetch_array($query);
     <div class="card-body">
         <form method='get' action='update/update_datapasien.php'>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
             <!-- text input -->
             <div class="form-group">
-                <label for="exampleInputNik">NIK</label>
                 <input type="text" class="form-control" id="exampleInputNik" placeholder="NIK" name='nik' value="<?php echo $view['nik'];?>" hidden>
             </div>
             <div class="form-group">
@@ -63,8 +62,16 @@ $view  = mysqli_fetch_array($query);
               </div>
               <div class="form-group">
                 <label for="exampleInputNamaPuskesmas">Nama Puskesmas</label>
-                <input type="text" class="form-control" id="exampleInputNamaPuskesmas" placeholder="Nama Puskesmas" name='puskesmas' required value="<?php echo $view['puskesmas'];?>">
-              </div>
+                <select class="form-control" name="puskesmas">
+                    <option class="form-control"></option>
+                    <?php
+                    $query = mysqli_query($koneksi, "SELECT * FROM datapuskesmas");
+                    while ($q = mysqli_fetch_array($query)) {
+                      echo "<option value= '$q[id]'>$q[namapuskesmas]</option>";
+                    }
+                    ?>
+                  </select>   
+                </div>
               <div class="form-group">
                 <label for="exampleInputRiwayatPenyakit">Riwayat Penyakit</label>
                 <input type="text" class="form-control" id="exampleInputRiwayatPenyakit" placeholder="Riwayat Penyakit" name='riwayat' required value="<?php echo $view['riwayat'];?>">

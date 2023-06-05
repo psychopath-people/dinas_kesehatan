@@ -18,7 +18,7 @@
                   <thead>
                   <tr>
                     <th>No</th>
-                    <th>Id Puskesmas</th>
+                    <th>Kode</th>
                     <th>Nama Puskesmas</th>
                     <th>ACTION</th>
                   </tr>
