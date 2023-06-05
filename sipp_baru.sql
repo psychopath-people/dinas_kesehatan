@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Jun 2023 pada 08.56
--- Versi server: 10.4.27-MariaDB
--- Versi PHP: 8.1.12
+-- Generation Time: Jun 05, 2023 at 09:05 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `datadokter`
+-- Table structure for table `datadokter`
 --
 
 CREATE TABLE IF NOT EXISTS `datadokter` (
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `datadokter` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `datapasien`
+-- Table structure for table `datapasien`
 --
 
 CREATE TABLE IF NOT EXISTS `datapasien` (
@@ -55,13 +55,14 @@ CREATE TABLE IF NOT EXISTS `datapasien` (
   `tglperiksa` date NOT NULL,
   `puskesmas` varchar(10) NOT NULL,
   `riwayat` varchar(10) NOT NULL,
-  PRIMARY KEY (`nik`)
+  PRIMARY KEY (`nik`),
+  KEY `fk_puskesmas` (`puskesmas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `datapuskesmas`
+-- Table structure for table `datapuskesmas`
 --
 
 CREATE TABLE IF NOT EXISTS `datapuskesmas` (
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `datapuskesmas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `datapuskesmas`
+-- Dumping data for table `datapuskesmas`
 --
 
 INSERT INTO `datapuskesmas` (`id`, `namapuskesmas`) VALUES
@@ -98,7 +99,7 @@ INSERT INTO `datapuskesmas` (`id`, `namapuskesmas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `laporan`
+-- Table structure for table `laporan`
 --
 
 CREATE TABLE IF NOT EXISTS `laporan` (
@@ -109,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `laporan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `laporan`
+-- Dumping data for table `laporan`
 --
 
 INSERT INTO `laporan` (`id`, `bulan`, `kodepenyakit`, `jumlah`) VALUES
@@ -129,7 +130,7 @@ INSERT INTO `laporan` (`id`, `bulan`, `kodepenyakit`, `jumlah`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE IF NOT EXISTS `tb_user` (
@@ -141,12 +142,22 @@ CREATE TABLE IF NOT EXISTS `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
 INSERT INTO `tb_user` (`id`, `nama`, `username`, `password`, `level`) VALUES
 (1, 'admin', 'admin', 'admin', 'superadmin'),
 (2, 'liedha', 'op1', 'op1', 'operator');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `datapasien`
+--
+ALTER TABLE `datapasien`
+  ADD CONSTRAINT `fk_puskesmas` FOREIGN KEY (`puskesmas`) REFERENCES `datapuskesmas` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
