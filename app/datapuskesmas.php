@@ -35,7 +35,7 @@
                     <td><?php echo $psksms['id'] ?></td>
                     <td><?php echo $psksms['namapuskesmas'] ?></td>
                     <td>
-                      <a href="index.php?page=hapusdata_puskesmas&&id=<?php echo $psksms['id']; ?>" class=" btn btn-sm btn-danger">Hapus</a>
+                      <a onclick="hapus_data('<?php echo $psksms['id']; ?>')" class="btn btn-sm btn-danger">Hapus</a>
                       <a href="index.php?page=edit-puskesmas&&id=<?php echo $psksms['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                     </td>
                   </tr>
@@ -128,25 +128,6 @@
           /*Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
             window.location = ("delete/hapusdata_puskesmas.php?id=" + data_id)
-          }
-        })
-      }
-    </script>
-    <script>
-      function hapus_data(data_id) {
-        //alert('ok');
-        //window.location=("delete/hapus_data.php?id="+data_id);
-        Swal.fire({
-          title: 'Apakah Anda Ingin Menghapusnya?',
-          //showDenyButton: false,
-          showCancelButton: true,
-          confirmButtonText: 'Hapus',
-          confirmButtonColor: 'red',
-          //denyButtonText: 'No',
-        }).then((result) => {
-          /*Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            window.location = ("delete/hapusdata_puskesmas.php?id=" + data_nik)
           }
         })
       }
