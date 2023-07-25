@@ -1,66 +1,19 @@
 <?php
         include('../conf/config.php');
-        $q =   $query = mysqli_query($koneksi,"SELECT * FROM datapuskesmas");
-        $p =   $query = mysqli_query($koneksi,"SELECT * FROM datadokter");
-        $s =   $query = mysqli_query($koneksi,"SELECT * FROM datapasien");
-        while ($r = $q->fetch_array()) {
-            $total = mysqli_num_rows($q);
-            $total2 = mysqli_num_rows($p);
-            $total1 = mysqli_num_rows($s);
-        } ?>
-
+        ?>
 <div class="container-fluid">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style type="text/css">
+            .container {
+                width: 40%;
+                margin: 15px auto;
+            }
+    </style>
         <!-- Small boxes (Stat box) -->
         <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3><?php echo $total1; ?></h3>
-
-                        <p>Pasien</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="index.php?page=datapasien" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3><?php echo $total2; ?></h3>
-
-                        <p>Dokter</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="index.php?page=datadokter" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3><?php echo $total; ?></h3>
-
-                        <p>Puskesmas</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="index.php?page=datapuskesmas" class="small-box-footer">More info <i
-                            class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-        </div>
+        <div class="container">
+        <canvas id="myChart" width="100" height="100"></canvas>
+    </div>
         <!-- /.row -->
         <!-- Main row -->
         </section>
@@ -68,3 +21,50 @@
     </div>
     <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
+    <?php
+    $query = "SELECT DATE_FORMAT(tglperiksa, '%Y-%m') AS tanggal, COUNT(*) AS jumlah FROM datapasien GROUP BY DATE_FORMAT(tglperiksa, '%Y-%m')";
+    $result = $koneksi->query($query);
+
+    // Inisialisasi array untuk menyimpan data bulan dan jumlah datadatapasien
+    $labels = [];
+    $data = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $labels[] = $row['tanggal'];
+            $data[] = $row['jumlah'];
+        }
+    }
+
+    // Tutup koneksi database
+    $koneksi->close();
+    ?>
+
+    <script>
+        // Data dari PHP disimpan dalam variabel JavaScript
+        var labels = <?php echo json_encode($labels); ?>;
+        var data = <?php echo json_encode($data); ?>;
+
+        // Membuat grafik menggunakan Chart.js
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah datapasien',
+                    data: data,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
